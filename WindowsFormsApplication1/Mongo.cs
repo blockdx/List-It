@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using MongoDB.Driver.Core;
+using MongoDB.Bson.Serialization.Attributes;
 
 public class Mongo
 {
@@ -12,15 +17,14 @@ public class Mongo
             Server = new MongoServerAddress("localhost")
         };
 
-        //Get a reference to the Client Object
-        mongoClient = new MongoClient(settings);
-        mongoServer = mongoClient.GetServer();
+        MongoClient mongoClient = new MongoClient(settings);
+        var db = mongoClient.GetDatabase("ListDB");
 	}
     public class User
     {
         [BsonId]
         public ObjectId ID { get; set; }
-        [BsonElement("name")]
+        [BsonElement("Name")]
         public string Name { get; set; }
         [BsonElement("Lists")]
         public List<List> Lists { get; set; }
@@ -29,7 +33,7 @@ public class Mongo
     {
         [BsonElement("List Name")]
         public string ListName { get; set; }
-        [BsonElement("technology")]
-        public string List { get; set; }
+        [BsonElement("List")]
+        public string ListData { get; set; }//
     }
 }

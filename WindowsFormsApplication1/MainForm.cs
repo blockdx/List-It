@@ -11,9 +11,9 @@ using System.Drawing.Printing;
 
 namespace WindowsFormsApplication1
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             
@@ -103,8 +103,11 @@ namespace WindowsFormsApplication1
             //print
             printDocument1.PrintPage += new PrintPageEventHandler(this.DrawPage);
             printDialog1.Document = printDocument1;
-            printDialog1.ShowDialog();
-            printDocument1.Print();
+            DialogResult printResult = printDialog1.ShowDialog(this);
+            if (printResult == DialogResult.Cancel)
+                return;
+            else
+                printDocument1.Print();
             printDocument1.Dispose();
         }
         private void DrawPage(object sender, PrintPageEventArgs e)
@@ -122,5 +125,12 @@ namespace WindowsFormsApplication1
             e.Graphics.DrawString(text, font, Brushes.Black, e.MarginBounds.X, y);
         }
 
+        private void button7_Click(object sender, EventArgs e)
+        {
+            //usernames and passwords are limited to 12 chars
+            //maybe prompt user to tell them that ^ when creating a new account
+            LoginForm loginForm = new LoginForm();
+            loginForm.ShowDialog();
+        }
     }
 }
