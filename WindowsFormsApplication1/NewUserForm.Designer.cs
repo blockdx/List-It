@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace WindowsFormsApplication1
+namespace ListIt
 {
     partial class NewUserForm
     {

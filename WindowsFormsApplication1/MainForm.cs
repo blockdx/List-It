@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Printing;
 
-namespace WindowsFormsApplication1
+namespace ListIt
 {
     public partial class MainForm : Form
     {
