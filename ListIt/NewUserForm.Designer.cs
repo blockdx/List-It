@@ -80,8 +80,9 @@ namespace ListIt
             this.button1.TabIndex = 4;
             this.button1.Text = "Create Account";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // Form3
+            // NewUserForm
             // 
             this.ClientSize = new System.Drawing.Size(220, 99);
             this.Controls.Add(this.button1);
@@ -89,7 +90,7 @@ namespace ListIt
             this.Controls.Add(this.label1);
             this.Controls.Add(this.password);
             this.Controls.Add(this.username);
-            this.Name = "Form3";
+            this.Name = "NewUserForm";
             this.Text = "New User";
             this.Load += new System.EventHandler(this.Form3_Load);
             this.ResumeLayout(false);
