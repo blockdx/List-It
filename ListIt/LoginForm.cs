@@ -23,18 +23,39 @@ namespace ListIt
             ListDB db = new ListDB();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
-            //login
+            //log in
+            //check if user exists
+            if ((!(username.Text.Equals("")) && (!password.Text.Equals(""))))
+            {
+                if (await ListDB.checkUserExists(username.Text))
+                {
+                    if (await ListDB.logIn(username.Text, ListDB.hashIt(password.Text)))
+                    {
+                        //username and password match
+                        MainForm.label1.Text = "Logged in as ' " + username.Text + " '";
+                        MainForm.button7.Hide();
+                        MainForm.button8.Show();
+                        MainForm.LoggedIn = true;
+                        Close();
+                    }
+                    else
+                        MessageBox.Show("Wrong password!");
+                    //password does not match
+                }
+                else
+                    MessageBox.Show("That username does not exist.");
+            }
+            else
+                MessageBox.Show("The username or password field is empty.");
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //create new account
-            //need to check if account already exists
-            //usernames and passwords less than 12 chars
             NewUserForm createAccountForm = new NewUserForm();
             createAccountForm.ShowDialog();
         }
-    }  
+    }
 }

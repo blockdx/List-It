@@ -13,6 +13,7 @@ namespace ListIt
 {
     public partial class MainForm : Form
     {
+        public static bool LoggedIn = false;
         public MainForm()
         {
             InitializeComponent();
@@ -127,10 +128,16 @@ namespace ListIt
 
         private void button7_Click(object sender, EventArgs e)
         {
-            //usernames and passwords are limited to 12 chars
-            //maybe prompt user to tell them that ^ when creating a new account
             LoginForm loginForm = new LoginForm();
             loginForm.ShowDialog();
+            
+        }
+        private void button8_Click(object sender, EventArgs e)
+        {
+            //logging out
+            label1.Text = "Working locally";
+            button7.Show();
+            button8.Hide();
         }
     }
 }

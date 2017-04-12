@@ -24,22 +24,22 @@ namespace ListIt
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             if ((!(username.Text.Equals("")) && (!password.Text.Equals(""))))
             {
                 //if user does not exist already
-                ListDB.User user = new ListDB.User();
-                user.Name = username.Text;
-                //get password, hash it, store hash in db
-                var data = System.Text.Encoding.UTF8.GetBytes(password.Text);
-                data = new System.Security.Cryptography.SHA256Managed().ComputeHash(data);
-                user.pwdHash = "";
-                foreach (byte b in data)
+                if (await ListDB.checkUserExists(username.Text) == false)
                 {
-                    user.pwdHash += b.ToString("X2");
+                    //hash password
+                    var pwdHash = ListDB.hashIt(password.Text);
+                    //create user
+                    ListDB.newUser(username.Text, pwdHash);
+                    //return to login form
+                    Close();
                 }
-                MessageBox.Show(user.Name + "\n" + user.pwdHash);
+                else
+                    MessageBox.Show("That username has already been taken. Please try another.");
             }
             else
                 MessageBox.Show("The username or password field is empty.");
